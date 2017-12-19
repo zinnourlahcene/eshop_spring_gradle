@@ -1,0 +1,69 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <title>title</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vendor.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/app-blue.css}"/>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+    <body>
+        <div class="auth">
+            <div class="auth-container">
+                <div class="card">
+                    <header class="auth-header">
+                        <h1 class="auth-title">
+                            <div class="logo">
+                                <span class="l l1"></span>
+                                <span class="l l2"></span>
+                                <span class="l l3"></span>
+                                <span class="l l4"></span>
+                                <span class="l l5"></span>
+                            </div>        Ecommerce
+                        </h1> </header>
+                    <div class="auth-content">
+                        <p class="text-xs-center">LOGIN TO CONTINUE</p>
+
+                        <div th:if="${Login != null}">
+                            <div th:if="${!Login.login}">
+                                <font color="red" th:text="${Login.message}"></font>
+                            </div>
+                        </div>
+
+                        <form id="login-form" action="#" th:action="@{/login}" method="POST" novalidate="" th:object="${addUserLogin}">
+                            <div class="form-group"> <label for="username">Username</label> 
+                                <input type="email" class="form-control underlined" th:field="*{userEmail}" id="username" placeholder="Your email address" />
+                            </div>
+                            <div class="form-group"> <label for="password">Password</label> 
+                                <input type="password" class="form-control underlined" th:field="*{userPassword}" id="password" placeholder="Your password"/>
+                            </div>
+                            <div class="form-group"> <label for="remember">
+                                    <input class="checkbox" id="remember" type="checkbox"> 
+                                    <span>Remember me</span>
+                                </label> <a href="reset.html" class="forgot-btn pull-right">Forgot password?</a> </div>
+                            <div class="form-group"> <button type="submit" class="btn btn-block btn-primary">Login</button> </div>
+                            <div class="form-group">
+                                <p class="text-muted text-xs-center">Do not have an account? <a th:href="@{/signup}">Sign Up!</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Reference block for JS -->
+        <div class="ref" id="ref">
+            <div class="color-primary"></div>
+            <div class="chart">
+                <div class="color-primary"></div>
+                <div class="color-secondary"></div>
+            </div>
+        </div>
+
+
+        <script th:src="@{/js/vendor.js}"></script>
+        <script th:src="@{/js/app.js}"></script>
+    </body>
+</html>

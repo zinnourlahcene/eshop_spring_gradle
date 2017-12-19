@@ -1,0 +1,167 @@
+<html   xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/xhtml"
+        data-layout-decorate="~{fragments/layout}">
+<head>
+
+    <title>title</title>
+</head>
+
+<body>
+
+<article class="content item-editor-page" data-layout-fragment="article">
+    <div class="title-block">
+        <h3 class="title" th:text="${add != null}? ${add}+ ' product': ${edit}+ ' product : '+ ${product.productName}">
+            <span class="sparkline bar" data-type="bar"></span>
+        </h3>
+    </div>
+    <form name="item"
+          action="#"
+          th:action="@{/product/add}"
+          th:method="POST"
+          th:object="${product}"
+          enctype="multipart/form-data">
+    <div class="card card-block">
+        <div class="form-group row"><label class="col-sm-2 form-control-label text-xs-right">
+            Name:
+        </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control boxed" placeholder="" th:field="*{productName}">
+            </div>
+        </div>
+
+        <div class="form-group row"><label class="col-sm-2 form-control-label text-xs-right">
+            Gender:
+        </label>
+            <div class="col-sm-10">
+
+                <select class="c-select form-control boxed" th:name="optionsGender">
+                    <option th:value="0">Select Gender</option>
+                    <option th:each="gender : ${genders}" th:value="${gender.optionId}" th:text="${gender.optionName}"
+                            th:selected="${genderById}"></option>
+                </select>
+            </div>
+        </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label text-xs-right">
+                        Price:
+                    </label>
+                    <div class="col-sm-4 inputGroupContainer">
+                        <div class="input-group">
+                            <input type="text" class="form-control" th:field="*{productPrice}"/>
+                            <span class="input-group-addon">DA</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group row"><label class="col-sm-2 form-control-label text-xs-right">
+                    Brand:
+                </label>
+
+                    <div class="col-sm-10">
+                        <select class="c-select form-control boxed" th:name="optionsBrand">
+                            <option th:value="${null}">Select brand</option>
+                            <option th:each="brand : ${brands}" th:value="${brand.optionId}" th:text="${brand.optionName}"
+                                    th:selected="${brandById}"></option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row" >
+                    <label class="col-sm-2 form-control-label text-xs-right">
+                        Size:
+                    </label>
+                <th:block  th:each="size : ${sizes}">
+                    <label th:text="${size.optionName}"></label>
+                    <input type="checkbox"
+                           th:value="${size.optionId}" th:name="optionsSize"/>
+                </th:block>
+
+                </div>
+
+                <div class="form-group row" >
+                    <label class="col-sm-2 form-control-label text-xs-right">
+                        Color:
+                    </label>
+                    <th:block th:each="color : ${colors}" >
+                        <label th:text="${color.optionName}"></label>
+                        <input type="checkbox"
+                               th:value="${color.optionId}" th:name="optionsColor"/>
+                    </th:block>
+
+                </div>
+
+
+                       <div class="form-group row"><label class="col-sm-2 form-control-label text-xs-right">
+                           Category:
+                       </label>
+                           <div class="col-sm-10">
+
+                               <select class="c-select form-control boxed" th:field="*{productCategoriesByProductCategoryId}">
+                                   <option th:value="0">Select Category</option>
+                                   <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
+
+                               </select>
+                           </div>
+                       </div>
+
+                              <div class="form-group row"><label class="col-sm-2 form-control-label text-xs-right">
+                                  Subcategory:
+                              </label>
+                                  <div class="col-sm-10">
+                                      <select class="c-select form-control boxed" th:field="*{productCategoriesByProductCategoryId.subProductCategoriesByCategoryId}">
+                                          <option th:value="0">Select Subcategory</option>
+                                          <option th:each="subcategory : ${subcategories}" th:value="${subcategory.subCategoryId}" th:text="${subcategory.subCategoryName}"></option>
+
+                                      </select>
+                                  </div>
+                              </div>
+
+
+
+
+                                     <div class="form-group row"><label class="col-sm-2 form-control-label text-xs-right">
+                                         Activity Name:
+                                     </label>
+
+                                         <div class="col-sm-10">
+                                             <select class="c-select form-control boxed" th:field="*{productActivityName}">
+                                                 <option th:value="${CHILD}">Select Activity Name</option>
+                                                 <option th:each="activity : ${ActivityName}" th:value="${activity}" th:text="${activity}"></option>
+
+                                             </select>
+                                         </div>
+                                     </div>
+
+                                             <div class="form-group row"><label class="col-sm-2 form-control-label text-xs-right">
+                                                 Activity Display:
+                                             </label>
+
+                                                 <div class="col-sm-10">
+                                                     <select class="c-select form-control boxed" th:field="*{productActivityDisplay}">
+                                                         <option th:value="${null}">Select Activity Display</option>
+                                                         <option th:each="activity : ${ActivityDisplay}" th:value="${activity}" th:text="${activity}"></option>
+
+                                                     </select>
+                                                 </div>
+                                             </div>
+
+                                                    <div class="form-group row"><label class="col-sm-2 form-control-label text-xs-right">
+                                                         Image:
+                                                     </label>
+                                                         <div class="col-sm-10"><input th:type="file" class="form-control boxed" placeholder="" th:name="Image"></div>
+                                                     </div>
+        <div class="form-group row">
+            <div class="col-sm-10 col-sm-offset-2">
+                <button type="submit" class="btn btn-primary">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+    </form>
+</article>
+
+</body>
+</html>
