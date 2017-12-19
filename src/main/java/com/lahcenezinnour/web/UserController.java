@@ -71,5 +71,6 @@ public class UserController {
         System.out.println("+++++++++++++++ xxx get +++++++++++");
         model.addAttribute("command", new Users());
         return "xxx";
+
     }
 }
