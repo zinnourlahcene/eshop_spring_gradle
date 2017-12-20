@@ -18,11 +18,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserValidator userValidator;
+    private final UserValidator userValidator;
+
+    private final UserService userService;
 
     @Autowired
-    private UserService userService;
+    public UserController(UserValidator userValidator, UserService userService) {
+        this.userValidator = userValidator;
+        this.userService = userService;
+    }
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String index(Model model) {
@@ -54,6 +58,7 @@ public class UserController {
         System.out.println("+++++++++++++++ signup get +++++++++++");
         model.addAttribute("signup", new Users());
         return "signup";
+
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
