@@ -32,6 +32,7 @@ public class UserController {
     public String index(Model model) {
         System.out.println("+++++++++++++++ index +++++++++++");
         return "index";
+
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
