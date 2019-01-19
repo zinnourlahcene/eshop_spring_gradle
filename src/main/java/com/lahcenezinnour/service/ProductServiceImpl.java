@@ -14,12 +14,12 @@ import java.util.List;
 @Service
 public class ProductServiceImpl extends AbstractService<Products, Integer> implements ProductService{
 
-    @Autowired
     private ProductRepository productRepository;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository repository) {
+    public ProductServiceImpl(ProductRepository repository, ProductRepository productRepository) {
         super(repository);
+        this.productRepository = productRepository;
     }
 
 
@@ -65,12 +65,12 @@ public class ProductServiceImpl extends AbstractService<Products, Integer> imple
 
     @Override
     public List<Products> getProductsByRange(int page, int items) {
-        return productRepository.findAll(new PageRequest(page, items)).getContent();
+        return productRepository.findAll(PageRequest.of(page, items)).getContent();
     }
 
     @Override
     public List<Products> findByProductActivityName(int page, int items, String activity) {
-        return productRepository.findByProductActivityName(activity, new PageRequest(page, items));
+        return productRepository.findByProductActivityName(activity, PageRequest.of(page, items));
     }
 
     @Override

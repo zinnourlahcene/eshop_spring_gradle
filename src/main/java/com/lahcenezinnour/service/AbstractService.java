@@ -10,14 +10,14 @@ import java.util.List;
  */
 public abstract class AbstractService<T, ID extends Serializable> {
 
-    JpaRepository<T, ID> repository;
+    private JpaRepository<T, ID> repository;
 
     public AbstractService(JpaRepository<T, ID> jpaRepository) {
         repository = jpaRepository;
     }
 
     T find(ID id){
-        return repository.findOne(id);
+        return repository.getOne(id);
     }
 
     T save(T entity){
@@ -25,11 +25,11 @@ public abstract class AbstractService<T, ID extends Serializable> {
     }
 
     List<T> save(Iterable<T> entities){
-        return repository.save(entities);
+        return repository.saveAll(entities);
     }
 
     boolean exists(ID id){
-        return repository.exists(id);
+        return repository.existsById(id);
     }
 
     long count(){
@@ -37,7 +37,7 @@ public abstract class AbstractService<T, ID extends Serializable> {
     }
 
     void delete(ID id){
-        repository.delete(id);
+        repository.deleteById(id);
     }
 
     void delete(T entity){

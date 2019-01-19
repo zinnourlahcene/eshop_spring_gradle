@@ -5,16 +5,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.thymeleaf.ITemplateEngine;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.thymeleaf.spring5.ISpringTemplateEngine;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @SpringBootApplication
-public class EshopApplication extends WebMvcConfigurerAdapter {
+public class EshopApplication implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EshopApplication.class, args);
@@ -23,12 +23,12 @@ public class EshopApplication extends WebMvcConfigurerAdapter {
 	@Bean
 	public ViewResolver viewResolver() {
 		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-		viewResolver.setTemplateEngine(templateEngine());
+		viewResolver.setTemplateEngine(templateEngin());
 		return viewResolver;
 	}
 
 	@Bean
-	public ITemplateEngine templateEngine() {
+	public ISpringTemplateEngine templateEngin() {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver());
 		templateEngine.addDialect(new LayoutDialect());

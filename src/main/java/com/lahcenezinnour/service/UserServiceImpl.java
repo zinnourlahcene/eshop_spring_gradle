@@ -14,12 +14,13 @@ import java.util.List;
 @Service
 public class UserServiceImpl extends AbstractService<Users, Integer> implements UserService {
 
-    @Autowired
+
     private UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(UserRepository repository, UserRepository userRepository) {
         super(repository);
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -59,7 +60,7 @@ public class UserServiceImpl extends AbstractService<Users, Integer> implements 
 
     @Override
     public void test() {
-        System.out.println(userRepository.findOne(1).getUserId());
+        System.out.println(userRepository.getOne(1).getUserId());
     }
 
     @Override
